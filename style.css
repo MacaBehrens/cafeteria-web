@@ -1,0 +1,267 @@
+/*====================================================
+  Soy mACARENA BEHRENS y en este trabajo uso *unidades relativas*
+  (rem, em, %, vw, vh) como pide la consigna.
+  Si cambio :root{ font-size }, lo que está en rem escala.
+=====================================================*/
+
+/* 1) Base tipográfica en rem (pruebo cambiando 16px a 18px para ver la escala) */
+:root { font-size: 16px; }
+
+/* Paleta y tokens simples para ordenar el estilo */
+:root{
+  --bg:#0f0f10;           /* fondo oscuro (queda moderno) */
+  --surface:#171718;      /* tarjetas/contendedores */
+  --ink:#efefef;          /* texto principal */
+  --muted:#bdbdbd;        /* texto secundario */
+  --brand:#c29b7e;        /* color café (marca) */
+  --brand-ink:#1f140d;    /* texto encima del brand */
+  --ring:#2a2623;
+  --radius: .75rem;       /* rem: escala constante */
+  --shadow: 0 .6rem 1.4rem rgba(0,0,0,.18);
+}
+
+/* (opcional) Si el sistema está en modo claro, aclaro colores */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#faf8f6; --surface:#ffffff; --ink:#1f1f1f; --muted:#5f5f5f;
+    --brand:#7b4e2e; --brand-ink:#ffffff; --ring:#e4d8cd;
+  }
+}
+
+/* ===== Reseteo mínimo ===== */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  font-size: 1rem;              /* rem → escala con :root */
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  display: flex;                /* Dejo el footer pegado abajo aun con poco contenido */
+  flex-direction: column;
+  min-height: 100vh;           /* vh → altura mínima pantalla */
+}
+main{ flex: 1; }
+
+/* Contenedor fluido: % para distribuir en el layout */
+.container{ width: 90%; max-width: 1100px; margin: 0 auto; }
+
+a{ color: inherit; text-decoration: none; }
+img{ max-width: 100%; display: block; }
+button{ font: inherit; }
+
+/* ====================================================
+   ENCABEZADO (logo + nombre + navegación)
+   Uso clamp(rem, vw) para tamaños responsivos.
+==================================================== */
+.site-header{
+  background:#111;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .8rem clamp(16px, 4vw, 48px); /* em/vw → respiración */
+}
+
+/* Bloque marca: logo grande y responsive */
+.brand{
+  display:inline-flex; align-items:center; gap: clamp(.5rem, 1.2vw, 1rem);
+}
+.brand__logo{
+  /* El logo crece con el viewport pero tiene límites */
+ width: clamp(56px, 8vw, 140px); /* ancho flexible */
+  max-height: 8vh;               /* no pasa de un % de la altura */
+  height: auto;                  /* mantiene proporción */
+  object-fit: contain;           /* asegura que no se deforme */
+  display: block;                /* buena práctica */
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+}
+.brand__name{
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  letter-spacing: .02em;
+}
+
+/* Navegación a la derecha */
+.nav__links{ display:flex; gap: clamp(1rem, 3vw, 2.5rem); list-style:none; margin:0; padding:0; }
+.nav__link{
+  padding: .25em .6em;          /* em → depende del texto del link */
+  border-radius: .5rem;         /* rem → constante */
+  opacity: .9;
+  transition: background .2s ease, opacity .2s ease;
+}
+.nav__link:hover{ background: rgba(255,255,255,.08); opacity:1; }
+
+@media (max-width: 768px){
+  .nav{ flex-direction: column; gap: .6rem; padding-block: 1rem; }
+  .nav__links{ gap: 1rem; }
+  .brand__logo{ width: clamp(72px, 14vw, 128px); }
+}
+
+/* ====================================================
+   HERO (sección principal)
+   La tipografía usa clamp(rem, vw) y el alto usa vh.
+==================================================== */
+.hero{
+  min-height: 56vh;            /* vh → responde al alto de ventana */
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #fff;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.45)),
+    url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1600&q=80')
+    center/cover no-repeat;
+  padding-block: 8vh;          /* vh → espaciado vertical ligado al viewport */
+  padding-inline: 5%;          /* % → respiro lateral */
+}
+.hero h1{ font-size: clamp(2rem, 6vw, 3.4rem); margin: 0 0 .5em 0; }
+.hero p { font-size: clamp(1rem, 2.4vw, 1.25rem); margin: 0 0 1em 0; }
+.btn{
+  display:inline-block;
+  background: var(--brand); color: var(--brand-ink);
+  padding: .65em 1.15em;       /* em → botón escala con su texto */
+  border-radius: .5rem;        /* rem */
+  box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover{ transform: translateY(-.06em); box-shadow: 0 .8rem 1.6rem rgba(0,0,0,.2); }
+
+/* ====================================================
+   SECCIONES GENERALES
+==================================================== */
+.section{ padding: 3em 0; }      /* em → el espaciado sigue la fuente */
+.section__title{ font-size: 1.6rem; margin: 0 0 .6em 0; }
+
+/* ===== Menú destacado (3+ tarjetas) ===== */
+.cards{
+  display:flex; gap: 1em; flex-wrap: wrap; justify-content: center;
+}
+.card{
+  background: var(--surface); border: 1px solid var(--ring);
+  border-radius: var(--radius);
+  width: 31%;                 /* % → 3 por fila en desktop */
+  min-width: 220px;           /* tope mínimo para móviles */
+  padding: 1.25em;            /* em → relleno relativo */
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.card h3{ margin: 0 0 .4em 0; font-size: 1.2rem; }
+.price{ margin: 0; font-weight: 700; font-size: 1.05rem; }
+
+/* ===== Callout (bloque destacado) ===== */
+.callout{
+  margin-top: 1.5em;
+  padding: 1em 1.25em;        /* em */
+  background: color-mix(in oklab, var(--brand) 18%, transparent);
+  border: 1px dashed var(--brand);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: space-between; gap: 1em;
+}
+
+/* ===== Promos del día (rejilla adaptable) ===== */
+.promos{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* % implícito por fr */
+  gap: .8em;                     /* em */
+  background: var(--surface);
+  padding: 1em;                  /* em */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Contacto ===== */
+#contacto{ text-align: center; }
+#contacto p{ margin: .3em 0; }
+
+/* ====================================================
+   FOOTER (altura en vh + tipografía proporcional al viewport)
+==================================================== */
+.site-footer{
+  min-height: 14vh;          /* vh → pedido por consigna */
+  display: grid;
+  place-items: center;
+  background: #a17d58;
+  font-size: clamp(.95rem, 1.2vw, 1.05rem); /* rem + vw → escala con viewport */
+  margin-top: 6vh;           /* vh → separación superior */
+}
+/* ===== Contacto ===== */
+.contact {
+  padding: 3rem 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-bottom: 1.5rem;
+  color: #4a2c2a; /* tono café para estilo cafetería */
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form__group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form__group input,
+.form__group textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form__group input:focus,
+.form__group textarea:focus {
+  border-color: #8b4513; /* marrón cálido */
+  outline: none;
+}
+
+
+
+
+
+/* ===== Testimonios ===== */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+.testimonial {
+  background: rgba(255, 255, 255, 0.453);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: .75rem;
+  padding: 1em 1.2em;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.testimonial__text { margin-bottom: .5em; line-height: 1.5; }
+.testimonial__author { font-weight: 600; opacity: .8; }
+
+/* Asegura que las tarjetas del menú fluyan bien en responsive */
+.menu__grid, .menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+.menu__item { background: rgba(255,255,255,0.6); border-radius: .5rem; padding: 1em; }
+.menu__img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: .5rem; margin-bottom: .7em; display:block; }
+.menu__title { margin: 0 0 .2em 0; font-size: 1.1rem; }
+.menu__desc { margin: 0 0 .4em 0; opacity: .85; }
+.menu__price { font-weight: 700; }

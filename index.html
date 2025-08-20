@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafetería Montaña</title>
+  <!-- Acá vinculo mi hoja de estilos externa -->
+  <link rel="stylesheet" href="style.css">
+ 
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
+
+</head>
+<body>
+
+  <!-- ENCABEZADO simple con mi logo y navegación -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Navegación principal">
+      <!-- Pongo mi logo a la izquierda. Uso una imagen que adjunté -->
+      <a href="#inicio" class="brand">
+        <img src="logo-cafeteria.png" alt="Logo Cafetería Montaña" class="brand__logo">
+        <span class="brand__name">Cafetería Montaña</span>
+      </a>
+
+      <!-- Links de navegación a cada sección -->
+      <ul class="nav__links"><li><a class="nav__link" href="#menu">Menú</a></li><li><a class="nav__link" href="#promos">Promos</a></li><li><a class="nav__link" href="#contacto">Contacto</a></li><li><a class="nav__link" href="#testimonios">Testimonios</a></li></ul></nav>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO: sección principal con imagen de fondo, título, subtítulo y botón.
+         Mantengo el diseño limpio y uso unidades relativas. -->
+    <section class="hero">
+      <div class="hero__inner container">
+        <h1>Tu refugio de sabor</h1>
+        <p>Café de especialidad y panadería artesanal al pie de la montaña.</p>
+        <a href="#menu" class="btn">Ver menú</a>
+      </div>
+    </section>
+
+    <!-- MENÚ DESTACADO: muestro 3 productos con su precio -->
+    <section id="menu" class="section container"><h2 class="section__title">Menú destacado</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Latte Montañés</h3>
+          <p class="price">$3.600</p>
+        </article>
+        <article class="card">
+          <h3>Medialuna</h3>
+          <p class="price">$1.400</p>
+        </article>
+        <article class="card">
+          <h3>Tostado de Campo</h3>
+          <p class="price">$5.800</p>
+        </article>
+      </div>
+
+      <!-- CALLOUT: agrego un bloque destacado con una promo -->
+      <aside class="callout">
+        <p><strong>Combo Amanecer:</strong> Latte + 2 medialunas <strong>$5.500</strong></p>
+        <a href="#promos" class="btn">Ver promos</a>
+      </aside>
+<!-- Productos extra -->
+      <div class="menu__grid">
+<article class="menu__item">
+        <img src="img/capu.jpeg" alt="Capuccino" class="menu__img">
+        <h3 class="menu__title">Capuccino</h3>
+        <p class="menu__desc">Espuma cremosa y cacao.</p>
+        <span class="menu__price">$2.600</span>
+      </article>
+      <article class="menu__item">
+        <img src="img/Medialunas.jpg" alt="Medialunas" class="menu__img">
+        <h3 class="menu__title">Medialunas (x2)</h3>
+        <p class="menu__desc">Manteca, recién horneadas.</p>
+        <span class="menu__price">$1.800</span>
+      </article>
+      <article class="menu__item">
+        <img src="img/tostados.jpeg" alt="Tostado" class="menu__img">
+        <h3 class="menu__title">Tostado</h3>
+        <p class="menu__desc">Jamón y queso.</p>
+        <span class="menu__price">$3.800</span>
+      </article>
+</div>
+</section>
+
+    <!-- PROMOS DEL DÍA: uso grid para que se adapten a distintos anchos -->
+    <section id="promos" class="section container">
+      <h2 class="section__title">Promos del día</h2>
+      <div class="promos">
+        <p>Capuccino + Cookie — <strong>$4.900</strong></p>
+        <p>Flat White + Brownie — <strong>$6.200</strong></p>
+        <p>Americano 2×1 (17–19 hs) — <strong>$3.000</strong></p>
+        <p>Submarino Kids (con mini medialuna) — <strong>$3.300</strong></p>
+      </div>
+    </section>
+
+    <!-- CONTACTO (única sección) -->
+<!-- TESTIMONIOS -->
+    <section id="testimonios" class="section container testimonials">
+      <h2 class="section__title">Testimonios</h2>
+      <div class="testimonials__grid">
+        <article class="testimonial">
+          <p class="testimonial__text">“El mejor capuccino de Yacanto. El lugar es hermoso.”</p>
+          <p class="testimonial__author">— Sofía, vecina</p>
+        </article>
+        <article class="testimonial">
+          <p class="testimonial__text">“Siempre vengo con mis hijos. Riquísimas las medialunas.”</p>
+          <p class="testimonial__author">— Martín, turista</p>
+        </article>
+        <article class="testimonial">
+          <p class="testimonial__text">“Atención amable y vista a las sierras. Volveré.”</p>
+          <p class="testimonial__author">— Laura, docente</p>
+        </article>
+      </div>
+    </section>
+<section id="contacto" class="section container contact">
+      <h2 class="section__title">Contacto</h2>
+      <p> Av. de los Cóndores 1234, Villa Yacanto</p>
+      <p> Lun a Dom — 08:00 a 20:00</p>
+
+      <form class="contact__form" action="#" method="get">
+        <div class="form__group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form__group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="form__group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+    </section>
+  </main>
+<!-- FOOTER: le doy altura en vh y tipografía proporcional -->
+  <footer class="site-footer">
+    <p>© 2025 Cafetería Montaña</p>
+  </footer>
+
+</body>
+</html>
